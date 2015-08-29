@@ -18,8 +18,8 @@ public class NewExpenseActivity extends Activity {
     private Expense expense;
     private ExpenseDbSource expenseDbSource;
 
-    private EditText usernameEditText;
-    private EditText phoneNoEditText;
+    private EditText nameEditText;
+    private EditText amountEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,8 @@ public class NewExpenseActivity extends Activity {
         actionBar.setBackgroundDrawable(new ColorDrawable(0xff333333));
         actionBar.setTitle("Create User");
 
-        usernameEditText = (EditText) findViewById(R.id.username);
-        phoneNoEditText = (EditText) findViewById(R.id.phone_no);
+        nameEditText = (EditText) findViewById(R.id.new_expense_layout_name);
+        amountEditText = (EditText) findViewById(R.id.new_expense_layout_amount);
     }
 
     @Override
@@ -77,8 +77,8 @@ public class NewExpenseActivity extends Activity {
     }
 
     private void initExpense() {
-        String name = usernameEditText.getText().toString().trim();
-        double amount = Double.parseDouble(phoneNoEditText.getText().toString().trim());
+        String name = nameEditText.getText().toString().trim();
+        double amount = Double.parseDouble(amountEditText.getText().toString().trim());
         expense = new Expense(name, amount);
     }
 

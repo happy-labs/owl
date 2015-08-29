@@ -36,12 +36,11 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="5dp"
                     android:textColor="#4a4a4a"
-                    android:id="@+id/share_layout_user_label"
                     android:text="Name">
                 </TextView>
 
                 <EditText
-                    android:id="@+id/username"
+                    android:id="@+id/new_expense_layout_name"
                     android:layout_width="fill_parent"
                     android:layout_height="45dp"
                     android:paddingLeft="10dp"
@@ -69,12 +68,11 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="5dp"
                     android:textColor="#4a4a4a"
-                    android:id="@+id/share_layout_phone_no_label"
                     android:text="Amount">
                 </TextView>
 
                 <EditText
-                    android:id="@+id/phone_no"
+                    android:id="@+id/new_expense_layout_amount"
                     android:layout_width="fill_parent"
                     android:layout_height="45dp"
                     android:paddingLeft="10dp"

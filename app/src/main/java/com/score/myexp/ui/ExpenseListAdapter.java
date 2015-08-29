@@ -83,12 +83,8 @@ public class ExpenseListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.list_row_layout, parent, false);
             holder = new ViewHolder();
             holder.iconText = (TextView) view.findViewById(R.id.icon_text);
-            holder.name = (TextView) view.findViewById(R.id.friend_list_row_layout_name);
-            holder.phoneNo = (TextView) view.findViewById(R.id.friend_list_row_layout_phone);
-            //holder.iconText.setTypeface(Typeface.BOLD);
-            //holder.iconText.setTextColor(activity.getResources().getColor(R.color.white));
-            //holder.name.setTypeface(typeface, Typeface.NORMAL);
-            //holder.phoneNo.setTypeface(typeface, Typeface.NORMAL);
+            holder.name = (TextView) view.findViewById(R.id.expense_list_row_layout_name);
+            holder.amount = (TextView) view.findViewById(R.id.expense_list_row_layout_amount);
 
             view.setTag(holder);
         } else {
@@ -99,7 +95,7 @@ public class ExpenseListAdapter extends BaseAdapter {
         // bind text with view holder content view for efficient use
         holder.iconText.setText("#");
         holder.name.setText(expense.getName());
-        holder.phoneNo.setText(Double.toString(expense.getAmount()));
+        holder.amount.setText(Double.toString(expense.getAmount()));
         view.setBackgroundResource(R.drawable.list_selector);
 
         return view;
@@ -112,7 +108,7 @@ public class ExpenseListAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView iconText;
         TextView name;
-        TextView phoneNo;
+        TextView amount;
     }
 
 }

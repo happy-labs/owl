@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/home_layout_new_user"
+        android:id="@+id/home_layout_new_expense"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -17,26 +17,24 @@
         android:background="@drawable/home_button_selector">
 
         <ImageView
-            android:id="@+id/home_layout_new_user_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/new_user">
+            android:background="@drawable/expense_new_icon">
         </ImageView>
 
         <TextView
-            android:id="@+id/assignment8_browse_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="New user"
+            android:text="New expense"
             android:textColor="#ffffff"
             android:textSize="18sp" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/home_layout_view_users"
+        android:id="@+id/home_layout_view_expenses"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -46,20 +44,18 @@
         android:background="@drawable/home_button_selector">
 
         <ImageView
-            android:id="@+id/assignment9_browse_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/all_users">
+            android:background="@drawable/expense_list_icon">
         </ImageView>
 
         <TextView
-            android:id="@+id/assignment9_browse_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="View users"
+            android:text="View expenses"
             android:textColor="#ffffff"
             android:textSize="18sp" />
     </RelativeLayout>

@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
  */
 public class HomeActivity extends Activity implements View.OnClickListener {
 
-    private RelativeLayout newUser;
-    private RelativeLayout viewUsers;
+    private RelativeLayout newExpense;
+    private RelativeLayout viewExpenses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +30,19 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         actionBar.setBackgroundDrawable(new ColorDrawable(0xff333333));
         actionBar.setTitle("Home");
 
-        newUser = (RelativeLayout) findViewById(R.id.home_layout_new_user);
-        viewUsers = (RelativeLayout) findViewById(R.id.home_layout_view_users);
+        newExpense = (RelativeLayout) findViewById(R.id.home_layout_new_expense);
+        viewExpenses = (RelativeLayout) findViewById(R.id.home_layout_view_expenses);
 
-        newUser.setOnClickListener(this);
-        viewUsers.setOnClickListener(this);
+        newExpense.setOnClickListener(this);
+        viewExpenses.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == newUser) {
+        if (v == newExpense) {
             Intent intent = new Intent(this, NewExpenseActivity.class);
             this.startActivity(intent);
-        } else if (v == viewUsers) {
+        } else if (v == viewExpenses) {
             Intent intent = new Intent(this, ExpenseListActivity.class);
             this.startActivity(intent);
         }
