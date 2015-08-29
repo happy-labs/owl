@@ -91,11 +91,27 @@ public class NewExpenseActivity extends Activity {
         } else {
             try {
                 expenseDbSource.createExpense(new Expense(name, Double.parseDouble(amount)));
+                findExpense(name);
+
+                NewExpenseActivity.this.finish();
                 Toast.makeText(this, "Successfully created expense", Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Failed to create expense", Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    /**
+     * Find expense with given name
+     * @param name expense name
+     */
+    private void findExpense(String name) {
+        Expense expense = expenseDbSource.findExpense(name);
+        if (expense != null) {
+            Toast.makeText(this, "Found expense: " + expense.getAmount(), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "No expense with given name", Toast.LENGTH_LONG).show();
         }
     }
 
