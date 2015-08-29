@@ -3,7 +3,7 @@ package com.score.myexp.db;
 import android.provider.BaseColumns;
 
 /**
- * Define Database schemas here
+ * Define Database schemas here(Keep database table attributes)
  *
  * @author eranga herath(erangaeb@gmail.com)
  */

@@ -1,7 +1,9 @@
 package com.score.myexp.pojos;
 
 /**
- * Created by eranga on 8/29/15.
+ * POJO class to keep expense details
+ *
+ * @author eranga herath(erangaeb@gmail.com)
  */
 public class Expense {
     private String name;

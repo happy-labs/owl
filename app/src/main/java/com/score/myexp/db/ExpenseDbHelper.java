@@ -3,9 +3,16 @@ package com.score.myexp.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
- * Created by eranga on 8/28/15.
+ * We do
+ * 1. Database creation
+ * 2. Table creation, deletions
+ * 3. Version managements
+ * from here
+ *
+ * @author eranga herath(erangaeb@hgmail.com)
  */
 public class ExpenseDbHelper extends SQLiteOpenHelper {
 
@@ -13,14 +20,14 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
     private static ExpenseDbHelper expenseDbHelper;
 
     // If you change the database schema, you must increment the database version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Expense.db";
 
-    // data types, keywords and queries
+    // data types
     private static final String TEXT_TYPE = " TEXT";
     private static final String REAL_TYPE = " REAL";
 
-    // sql to create user table
+    // sql to create expense table
     private static final String SQL_CREATE_EXPENSE =
             "CREATE TABLE " + ExpenseDbContract.Expense.TABLE_NAME + " (" +
                     ExpenseDbContract.Expense._ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + "," +
@@ -28,10 +35,11 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
                     ExpenseDbContract.Expense.COLUMN_NAME_AMOUNT + REAL_TYPE + "NOT NULL" +
                     " )";
 
-    // sql to delete user table
+    // sql to delete expense table
     private static final String SQL_DELETE_EXPENSE =
             "DROP TABLE IF EXISTS " + ExpenseDbContract.Expense.TABLE_NAME;
 
+    private static final String TAG = ExpenseDbSource.class.getName();
 
     /**
      * Init context
@@ -60,6 +68,7 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
      * {@inheritDoc}
      */
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "onCreate DbHelper");
         db.execSQL(SQL_CREATE_EXPENSE);
     }
 
@@ -67,6 +76,7 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
      * {@inheritDoc}
      */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d(TAG, "onUpgrade DbHelper");
         db.execSQL(SQL_DELETE_EXPENSE);
         onCreate(db);
     }

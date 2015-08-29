@@ -11,7 +11,12 @@ import com.score.myexp.pojos.Expense;
 import java.util.ArrayList;
 
 /**
- * Created by eranga on 8/28/15.
+ * We do
+ * 1. Object create
+ * 2. Object update
+ * 3. Object delete
+ * 4. Get objects
+ * from here
  */
 public class ExpenseDbSource {
 
@@ -30,14 +35,13 @@ public class ExpenseDbSource {
 
 
     /**
-     * Get Expense with matching Expensename
+     * Find expense with matching name
      *
      * @return Expense
      */
-    public Expense getExpense(String name) {
+    public Expense findExpense(String name) {
         // get matching Expense if exists
         SQLiteDatabase db = ExpenseDbHelper.getInstance(context).getWritableDatabase();
-
 
         Cursor cursor = db.query(ExpenseDbContract.Expense.TABLE_NAME, // table
                 null, ExpenseDbContract.Expense.COLUMN_NAME_NAME + "=?", // constraint
@@ -45,7 +49,6 @@ public class ExpenseDbSource {
                 null, // order by
                 null, // group by
                 null); // join
-
 
         if (cursor.moveToFirst()) {
             // have matching Expense
@@ -55,8 +58,9 @@ public class ExpenseDbSource {
             String _name = cursor.getString(cursor.getColumnIndex(ExpenseDbContract.Expense.COLUMN_NAME_NAME));
             double _amount = cursor.getDouble(cursor.getColumnIndex(ExpenseDbContract.Expense.COLUMN_NAME_AMOUNT));
 
-            Expense Expense = new Expense(_name, _amount);
-            return Expense;
+            Log.d(TAG, "Found expense with name: " + _name);
+
+            return new Expense(_name, _amount);
         }
 
         // clear
@@ -67,7 +71,7 @@ public class ExpenseDbSource {
     }
 
     public ArrayList<Expense> getAllExpenses() {
-        ArrayList<Expense> ExpenseList = new ArrayList<>();
+        ArrayList<Expense> expenseList = new ArrayList<>();
 
         // get matching Expense if exists
         SQLiteDatabase db = ExpenseDbHelper.getInstance(context).getWritableDatabase();
@@ -83,27 +87,26 @@ public class ExpenseDbSource {
             String _name = cursor.getString(cursor.getColumnIndex(ExpenseDbContract.Expense.COLUMN_NAME_NAME));
             double _amount = cursor.getDouble(cursor.getColumnIndex(ExpenseDbContract.Expense.COLUMN_NAME_AMOUNT));
 
+            Log.d(TAG, "Found expense name: " + _name);
 
-            Log.d(TAG, "have Expense, so return it: " + _id);
-            Expense Expense = new Expense(_name, _amount);
-            ExpenseList.add(Expense);
+            expenseList.add(new Expense(_name, _amount));
         }
 
         // clear
         cursor.close();
         db.close();
 
-        return ExpenseList;
+        return expenseList;
     }
 
     /**
      * Add Expense to the database
      */
     public void createExpense(Expense expense) {
-        Log.d(TAG, "Add Expense to DB: " + expense.getName());
+        Log.d(TAG, "Create expense: " + expense.getName());
         SQLiteDatabase db = ExpenseDbHelper.getInstance(context).getWritableDatabase();
 
-        // content values to inset
+        // content values to insert
         ContentValues values = new ContentValues();
         values.put(ExpenseDbContract.Expense.COLUMN_NAME_NAME, expense.getName());
         values.put(ExpenseDbContract.Expense.COLUMN_NAME_AMOUNT, expense.getAmount());
