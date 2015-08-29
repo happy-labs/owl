@@ -71,6 +71,10 @@ public class ExpenseDbSource {
         return null;
     }
 
+    /**
+     * Find all expenses
+     * @return expenses list
+     */
     public ArrayList<Expense> getAllExpenses() {
         ArrayList<Expense> expenseList = new ArrayList<>();
 
