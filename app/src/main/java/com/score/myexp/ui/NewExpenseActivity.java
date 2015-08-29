@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.score.myexp.db.ExpenseDbSource;
 import com.score.myexp.pojos.Expense;
@@ -86,8 +87,15 @@ public class NewExpenseActivity extends Activity {
 
         if (name.isEmpty() || amount.isEmpty()) {
             Log.e(TAG, "Invalid input fields");
+            Toast.makeText(this, "Invalid input fields", Toast.LENGTH_LONG).show();
         } else {
-            expenseDbSource.createExpense(new Expense(name, Double.parseDouble(amount)));
+            try {
+                expenseDbSource.createExpense(new Expense(name, Double.parseDouble(amount)));
+                Toast.makeText(this, "Successfully created expense", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Failed to create expense", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
