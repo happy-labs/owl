@@ -33,7 +33,7 @@ public class ExpenseListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_layout);
 
-        expenseDbSource = new ExpenseDbSource(this);
+        // TODO initialize DB source
 
         initUi();
         initExpenseList();
@@ -56,8 +56,8 @@ public class ExpenseListActivity extends Activity {
      * Read available expenses from database
      */
     private void initExpenseList() {
-        // get all expenses
-        expenseList = expenseDbSource.getAllExpenses();
+        expenseList = new ArrayList<>();
+        // TODO get all expenses(expenseList) via DB source
     }
 
     /**

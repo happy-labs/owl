@@ -23,21 +23,13 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Expense.db";
 
-    // data types
-    private static final String TEXT_TYPE = " TEXT";
-    private static final String REAL_TYPE = " REAL";
+    // TODO define data types
 
-    // sql to create expense table
-    private static final String SQL_CREATE_EXPENSE =
-            "CREATE TABLE " + ExpenseDbContract.Expense.TABLE_NAME + " (" +
-                    ExpenseDbContract.Expense._ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + "," +
-                    ExpenseDbContract.Expense.COLUMN_NAME_NAME + TEXT_TYPE + "NOT NULL" + "," +
-                    ExpenseDbContract.Expense.COLUMN_NAME_AMOUNT + REAL_TYPE + "NOT NULL" +
-                    " )";
+    // TODO write sql to create expense table
+    //private static final String SQL_CREATE_EXPENSE =
 
-    // sql to delete expense table
-    private static final String SQL_DELETE_EXPENSE =
-            "DROP TABLE IF EXISTS " + ExpenseDbContract.Expense.TABLE_NAME;
+    // TODO write sql to delete expense table
+    //private static final String SQL_DELETE_EXPENSE =
 
     private static final String TAG = ExpenseDbHelper.class.getName();
 
@@ -69,7 +61,7 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
      */
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate DbHelper");
-        db.execSQL(SQL_CREATE_EXPENSE);
+        // TODO execute create table queries
     }
 
     /**
@@ -77,15 +69,8 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
      */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onUpgrade DbHelper");
-        db.execSQL(SQL_DELETE_EXPENSE);
-        onCreate(db);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
+        // TODO execute drop table queries
+        // onCreate(db);
     }
 
 }

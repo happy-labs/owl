@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.score.myexp.db.ExpenseDbSource;
-import com.score.myexp.pojos.Expense;
 
 public class NewExpenseActivity extends Activity {
 
@@ -30,7 +29,7 @@ public class NewExpenseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_expense_layout);
 
-        expenseDbSource = new ExpenseDbSource(this);
+        // TODO create DB source instance
 
         initUi();
     }
@@ -89,30 +88,18 @@ public class NewExpenseActivity extends Activity {
             Log.e(TAG, "Invalid input fields");
             Toast.makeText(this, "Invalid input fields", Toast.LENGTH_LONG).show();
         } else {
-            try {
-                expenseDbSource.createExpense(new Expense(name, Double.parseDouble(amount)));
-                findExpense(name);
-
-                NewExpenseActivity.this.finish();
-                Toast.makeText(this, "Successfully created expense", Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Failed to create expense", Toast.LENGTH_LONG).show();
-            }
+            // TODO create expense via DB source
         }
     }
 
     /**
      * Find expense with given name
+     *
      * @param name expense name
      */
     private void findExpense(String name) {
-        Expense expense = expenseDbSource.findExpense(name);
-        if (expense != null) {
-            Toast.makeText(this, "Found expense: " + expense.getAmount(), Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "No expense with given name", Toast.LENGTH_LONG).show();
-        }
+        // TODO find expense with given name via DB source
+        // TODO display expense amount in a toast
     }
 
 }
