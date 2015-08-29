@@ -12,48 +12,48 @@ import com.score.myexp.pojos.Expense;
 import java.util.ArrayList;
 
 /**
- * Display friend list
+ * Display expense list
  *
  * @author eranga herath(erangaeb@gmail.com)
  */
 public class ExpenseListAdapter extends BaseAdapter {
 
     private ExpenseListActivity activity;
-    private ArrayList<Expense> userList;
+    private ArrayList<Expense> expenseList;
 
     /**
      * Initialize context variables
      *
      * @param activity friend list activity
      */
-    public ExpenseListAdapter(ExpenseListActivity activity, ArrayList<Expense> userList) {
+    public ExpenseListAdapter(ExpenseListActivity activity, ArrayList<Expense> expenseList) {
         this.activity = activity;
-        this.userList = userList;
+        this.expenseList = expenseList;
     }
 
     /**
-     * Get size of user list
+     * Get size of expense list
      *
-     * @return userList size
+     * @return expenseList size
      */
     @Override
     public int getCount() {
-        return userList.size();
+        return expenseList.size();
     }
 
     /**
-     * Get specific item from user list
+     * Get specific item from expense list
      *
      * @param i item index
      * @return list item
      */
     @Override
     public Object getItem(int i) {
-        return userList.get(i);
+        return expenseList.get(i);
     }
 
     /**
-     * Get user list item id
+     * Get expense list item id
      *
      * @param i item index
      * @return current item id

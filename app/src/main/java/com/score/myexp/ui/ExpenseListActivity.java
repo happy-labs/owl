@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import com.score.myexp.db.ExpenseDbSource;
 import com.score.myexp.pojos.Expense;
 
 import java.util.ArrayList;
 
 /**
- * Created by eranga on 8/29/15.
+ * Activity which responsible to display Expense list
+ *
+ * @author eranga herath(erangaeb@gmail.com)
  */
 public class ExpenseListActivity extends Activity {
 
@@ -20,33 +23,47 @@ public class ExpenseListActivity extends Activity {
     private ExpenseListAdapter expenseListAdapter;
     private ArrayList<Expense> expenseList;
 
+    private ExpenseDbSource expenseDbSource;
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_layout);
 
+        expenseDbSource = new ExpenseDbSource(this);
+
         initUi();
-        initUserList();
-        initUserListView();
-    }
-
-    private void initUi() {
-        final ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(0xff333333));
-        actionBar.setTitle("User list");
-    }
-
-    private void initUserList() {
-        expenseList = new ArrayList<>();
-        expenseList.add(new Expense("Dinner", 400.00));
-        expenseList.add(new Expense("Lunch", 1334.45));
+        initExpenseList();
+        initExpenseListView();
     }
 
     /**
-     * Initialize friend list
+     * Initialize UI components
+     * Setup action bar
      */
-    private void initUserListView() {
+    private void initUi() {
+        // set up action bar
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setBackgroundDrawable(new ColorDrawable(0xff333333));
+        actionBar.setTitle("Expenses");
+    }
+
+    /**
+     * Read available expenses from database
+     */
+    private void initExpenseList() {
+        // get all expenses
+        expenseList = expenseDbSource.getAllExpenses();
+    }
+
+    /**
+     * Initialize expense list view
+     */
+    private void initExpenseListView() {
         expenseListView = (ListView) findViewById(R.id.list_view);
         expenseListAdapter = new ExpenseListAdapter(this, expenseList);
 

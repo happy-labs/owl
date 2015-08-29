@@ -39,7 +39,7 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_EXPENSE =
             "DROP TABLE IF EXISTS " + ExpenseDbContract.Expense.TABLE_NAME;
 
-    private static final String TAG = ExpenseDbSource.class.getName();
+    private static final String TAG = ExpenseDbHelper.class.getName();
 
     /**
      * Init context

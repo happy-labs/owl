@@ -9,13 +9,18 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 /**
- * Created by eranga on 8/29/15.
+ * Main activity of MyExp
+ *
+ * @author eranga herath(erangaeb#@gmail.com)
  */
 public class HomeActivity extends Activity implements View.OnClickListener {
 
     private RelativeLayout newExpense;
     private RelativeLayout viewExpenses;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +29,12 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         initUi();
     }
 
+    /**
+     * Initialize layout components
+     * Setup action bar
+     */
     private void initUi() {
+        // setup action bar
         final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(0xff333333));
@@ -32,11 +42,13 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
         newExpense = (RelativeLayout) findViewById(R.id.home_layout_new_expense);
         viewExpenses = (RelativeLayout) findViewById(R.id.home_layout_view_expenses);
-
         newExpense.setOnClickListener(this);
         viewExpenses.setOnClickListener(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onClick(View v) {
         if (v == newExpense) {

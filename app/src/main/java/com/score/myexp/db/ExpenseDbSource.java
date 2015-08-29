@@ -20,8 +20,9 @@ import java.util.ArrayList;
  */
 public class ExpenseDbSource {
 
-    private static final String TAG = ExpenseDbSource.class.getName();
     private static Context context;
+
+    private static final String TAG = ExpenseDbSource.class.getName();
 
     /**
      * Init db helper
@@ -58,7 +59,7 @@ public class ExpenseDbSource {
             String _name = cursor.getString(cursor.getColumnIndex(ExpenseDbContract.Expense.COLUMN_NAME_NAME));
             double _amount = cursor.getDouble(cursor.getColumnIndex(ExpenseDbContract.Expense.COLUMN_NAME_AMOUNT));
 
-            Log.d(TAG, "Found expense with name: " + _name);
+            Log.d(TAG, "Found expense - " + _id + ": " + _name + ": " + _amount);
 
             return new Expense(_name, _amount);
         }
@@ -87,7 +88,7 @@ public class ExpenseDbSource {
             String _name = cursor.getString(cursor.getColumnIndex(ExpenseDbContract.Expense.COLUMN_NAME_NAME));
             double _amount = cursor.getDouble(cursor.getColumnIndex(ExpenseDbContract.Expense.COLUMN_NAME_AMOUNT));
 
-            Log.d(TAG, "Found expense name: " + _name);
+            Log.d(TAG, "Found expense - " + _id + ": " + _name + ": " + _amount);
 
             expenseList.add(new Expense(_name, _amount));
         }
@@ -103,7 +104,7 @@ public class ExpenseDbSource {
      * Add Expense to the database
      */
     public void createExpense(Expense expense) {
-        Log.d(TAG, "Create expense: " + expense.getName());
+        Log.d(TAG, "Create expense - " + expense.getName() + ": " + expense.getAmount());
         SQLiteDatabase db = ExpenseDbHelper.getInstance(context).getWritableDatabase();
 
         // content values to insert

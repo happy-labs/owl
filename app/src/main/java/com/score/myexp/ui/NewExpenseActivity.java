@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -11,35 +12,46 @@ import android.widget.EditText;
 import com.score.myexp.db.ExpenseDbSource;
 import com.score.myexp.pojos.Expense;
 
-import java.util.ArrayList;
-
 public class NewExpenseActivity extends Activity {
-
-    private Expense expense;
-    private ExpenseDbSource expenseDbSource;
 
     private EditText nameEditText;
     private EditText amountEditText;
 
+    private ExpenseDbSource expenseDbSource;
+
+    private static final String TAG = NewExpenseActivity.class.getName();
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_expense_layout);
 
         expenseDbSource = new ExpenseDbSource(this);
+
         initUi();
     }
 
+    /**
+     * Initialize UI components
+     * Setup action bar
+     */
     private void initUi() {
+        // set up action bar
         final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(0xff333333));
-        actionBar.setTitle("Create User");
+        actionBar.setTitle("New expense");
 
         nameEditText = (EditText) findViewById(R.id.new_expense_layout_name);
         amountEditText = (EditText) findViewById(R.id.new_expense_layout_amount);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -47,28 +59,16 @@ public class NewExpenseActivity extends Activity {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_done) {
-            // init user
-            initExpense();
-
-            // save user
-            expenseDbSource.createExpense(expense);
-
-            // get all users
-            ArrayList<Expense> expenses = expenseDbSource.getAllExpenses();
-            for (Expense e : expenses) {
-                System.out.println(e.getName());
-            }
-
-//            // get user with phoneno
-//            User createdUser = registryDbSource.getUser(user.getPhoneNo());
-//            System.out.println("-------");
-//            System.out.println(createdUser.getUsername());
+            // create expense
+            createExpense();
 
             return true;
         }
@@ -76,10 +76,19 @@ public class NewExpenseActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initExpense() {
+    /**
+     * Initialize expense with UI component values
+     * Then create expense in database
+     */
+    private void createExpense() {
         String name = nameEditText.getText().toString().trim();
-        double amount = Double.parseDouble(amountEditText.getText().toString().trim());
-        expense = new Expense(name, amount);
+        String amount = amountEditText.getText().toString().trim();
+
+        if (name.isEmpty() || amount.isEmpty()) {
+            Log.e(TAG, "Invalid input fields");
+        } else {
+            expenseDbSource.createExpense(new Expense(name, Double.parseDouble(amount)));
+        }
     }
 
 }
