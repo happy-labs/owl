@@ -40,8 +40,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == newUser) {
-            //Intent intent = new Intent(this, NewUserActivity.class);
-            //this.startActivity(intent);
+            Intent intent = new Intent(this, NewExpenseActivity.class);
+            this.startActivity(intent);
         } else if (v == viewUsers) {
             Intent intent = new Intent(this, ExpenseListActivity.class);
             this.startActivity(intent);
