@@ -59,7 +59,7 @@
                 android:layout_height="200dp">
 
                 <Button
-                    android:id="@+id/add_friend_btn"
+                    android:id="@+id/save_button"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_below="@+id/friend_id"

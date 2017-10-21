@@ -1,6 +1,9 @@
 package com.score.owl.db;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -11,8 +14,6 @@ import java.util.ArrayList;
 /**
  * We do
  * 1. Object create
- * 2. Object update
- * 3. Object delete
  * 4. Get objects
  * from here
  */
@@ -32,40 +33,76 @@ public class ExpenseDbSource {
         this.context = context;
     }
 
+    /**
+     * Find all contacts,
+     * <p>
+     * executing query
+     * SELECT * FROM contacts;
+     *
+     * @return contacts list
+     */
+    public ArrayList<Expense> getContacts() {
+        SQLiteDatabase db = ExpenseDbHelper.getInstance(context).getReadableDatabase();
+        Cursor cursor = db.query(ExpenseDbContract.Contact.TABLE_NAME, // table
+                null, // columns
+                null, // filter
+                null, // selection
+                null, // order by
+                null, // group by
+                null); // join
+
+        ArrayList<Expense> contactsList = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String username = cursor.getString(cursor.getColumnIndex(ExpenseDbContract.Contact.COLUMN_NAME_USERNAME));
+            String phone = cursor.getString(cursor.getColumnIndex(ExpenseDbContract.Contact.COLUMN_NAME_PHONE));
+            contactsList.add(new Expense(username, 1.0));
+        }
+
+        return contactsList;
+    }
 
     /**
-     * Find expense with matching name
+     * Get contact with given username,
+     * <p>
+     * executing query
+     * SELECT * FROM contacts WHERE username = '<given username>';
      *
-     * @return Expense
+     * @return contact list
      */
-    public Expense findExpense(String name) {
-        // get matching Expense if exists
-        SQLiteDatabase db = ExpenseDbHelper.getInstance(context).getWritableDatabase();
+    public Expense getContact(String username) {
+        SQLiteDatabase db = ExpenseDbHelper.getInstance(context).getReadableDatabase();
+        Cursor cursor = db.query(ExpenseDbContract.Contact.TABLE_NAME, // table
+                null, // columns
+                ExpenseDbContract.Contact.COLUMN_NAME_USERNAME + " = ?", // constraint
+                new String[]{username}, // prams
+                null, // order by
+                null, // group by
+                null); // join
 
-        // TODO write query
+        ArrayList<Expense> contactsList = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            String phone = cursor.getString(cursor.getColumnIndex(ExpenseDbContract.Contact.COLUMN_NAME_PHONE));
+
+            return new Expense(username, 1.0);
+        }
 
         return null;
     }
 
     /**
-     * Find all expenses
-     *
-     * @return expenses list
-     */
-    public ArrayList<Expense> getAllExpenses() {
-        ArrayList<Expense> expenseList = new ArrayList<>();
-
-        // TODO write query
-
-        return expenseList;
-    }
-
-    /**
      * Add Expense to the database
      */
-    public void createExpense(Expense expense) {
+    public long createContact(Expense expense) throws SQLException {
         Log.d(TAG, "Create expense - " + expense.getName() + ": " + expense.getAmount());
 
-        // TODO write query
+        SQLiteDatabase db = ExpenseDbHelper.getInstance(context).getWritableDatabase();
+
+        // content values to inset
+        ContentValues values = new ContentValues();
+        values.put(ExpenseDbContract.Contact.COLUMN_NAME_USERNAME, expense.getName());
+        values.put(ExpenseDbContract.Contact.COLUMN_NAME_PHONE, expense.getAmount());
+
+        // insert the new row, if fails throw an error
+        return db.insertOrThrow(ExpenseDbContract.Contact.TABLE_NAME, null, values);
     }
 }

@@ -8,9 +8,14 @@ import android.provider.BaseColumns;
  * @author eranga herath(erangaeb@gmail.com)
  */
 public class ExpenseDbContract {
-    /* Inner class that defines Expense table contents */
-    public static abstract class Expense implements BaseColumns {
-        // TODO define schemas(table structure)
+    /**
+     * Inner class that defines contact table contents
+     */
+    public static abstract class Contact implements BaseColumns {
+        static final String TABLE_NAME = "contacts";
+        static final String COLUMN_NAME_USERNAME = "username";
+        static final String COLUMN_NAME_PHONE = "phone";
+        static final String COLUMN_NAME_DIGSIG = "digsig";
     }
 }
 

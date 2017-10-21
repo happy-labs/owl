@@ -16,22 +16,35 @@ import android.util.Log;
  */
 public class ExpenseDbHelper extends SQLiteOpenHelper {
 
+    private static final String TAG = ExpenseDbHelper.class.getName();
+
     // we use singleton database
     private static ExpenseDbHelper expenseDbHelper;
 
-    // If you change the database schema, you must increment the database version
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Expense.db";
+    // if you change the database schema, you must increment the database version
+    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "owl.db";
 
-    // TODO define data types
+    //
+    // sql to create contacts table
+    //    CREATE TABLE contacts (
+    //        _id INTEGER PRIMARY KEY AUTOINCREMENT,
+    //        username TEXT,
+    //        phone TEXT,
+    //        digsig TEXT
+    //    );
+    private static final String SQL_CREATE_CONTACT =
+            "CREATE TABLE " + ExpenseDbContract.Contact.TABLE_NAME + " (" +
+                    ExpenseDbContract.Contact._ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + ", " +
+                    ExpenseDbContract.Contact.COLUMN_NAME_USERNAME + " TEXT, " +
+                    ExpenseDbContract.Contact.COLUMN_NAME_PHONE + " TEXT, " +
+                    ExpenseDbContract.Contact.COLUMN_NAME_DIGSIG + " TEXT" +
+                    " )";
 
-    // TODO write sql to create expense table
-    //private static final String SQL_CREATE_EXPENSE =
+    // sql to delete contacts table
+    //    DROP TABLE IF EXISTS contacts;
+    private static final String SQL_DELETE_CONTACT = "DROP TABLE IF EXISTS " + ExpenseDbContract.Contact.TABLE_NAME;
 
-    // TODO write sql to delete expense table
-    //private static final String SQL_DELETE_EXPENSE =
-
-    private static final String TAG = ExpenseDbHelper.class.getName();
 
     /**
      * Init context
@@ -61,7 +74,9 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
      */
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate DbHelper");
-        // TODO execute create table queries
+        Log.i(TAG, SQL_CREATE_CONTACT);
+
+        db.execSQL(SQL_CREATE_CONTACT);
     }
 
     /**
@@ -69,8 +84,10 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
      */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onUpgrade DbHelper");
-        // TODO execute drop table queries
-        // onCreate(db);
+        Log.i(TAG, SQL_DELETE_CONTACT);
+
+        db.execSQL(SQL_DELETE_CONTACT);
+        onCreate(db);
     }
 
 }

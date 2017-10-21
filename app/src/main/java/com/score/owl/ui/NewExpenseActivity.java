@@ -1,39 +1,35 @@
 package com.score.owl.ui;
 
+import android.database.SQLException;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.score.owl.R;
 import com.score.owl.db.ExpenseDbSource;
+import com.score.owl.pojo.Expense;
 
 public class NewExpenseActivity extends AppCompatActivity {
 
     private EditText nameEditText;
     private EditText amountEditText;
+    private Button createButton;
     private Typeface typeface;
-
-    private ExpenseDbSource expenseDbSource;
 
     private static final String TAG = NewExpenseActivity.class.getName();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_expense_layout);
         typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
-
-        // TODO create DB source instance
 
         initActionBar();
         initUi();
@@ -57,40 +53,42 @@ public class NewExpenseActivity extends AppCompatActivity {
         actionBar.setCustomView(view, params);
     }
 
-    /**
-     * Initialize UI components
-     * Setup action bar
-     */
     private void initUi() {
         nameEditText = (EditText) findViewById(R.id.name);
         amountEditText = (EditText) findViewById(R.id.amount);
-
         nameEditText.setTypeface(typeface);
         amountEditText.setTypeface(typeface);
+
+        createButton = (Button) findViewById(R.id.save_button);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createExpense();
+            }
+        });
     }
 
-    /**
-     * Initialize expense with UI component values
-     * Then create expense in database
-     */
     private void createExpense() {
         String name = nameEditText.getText().toString().trim();
         String amount = amountEditText.getText().toString().trim();
 
         if (name.isEmpty() || amount.isEmpty()) {
-            Log.e(TAG, "Invalid input fields");
             Toast.makeText(this, "Invalid input fields", Toast.LENGTH_LONG).show();
         } else {
-            // TODO create expense via DB source
+            try {
+                // create expense via DB source
+                new ExpenseDbSource(this).createContact(new Expense(name, 2.0));
+
+                Toast.makeText(this, "Contact successfully saved", Toast.LENGTH_LONG).show();
+                this.finish();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Failed to create contact", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
-    /**
-     * Find expense with given name
-     *
-     * @param name expense name
-     */
-    private void findExpense(String name) {
+    private void getExpense(String username) {
         // TODO find expense with given name via DB source
         // TODO display expense amount in a toast
     }

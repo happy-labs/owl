@@ -30,23 +30,21 @@ public class ExpenseListActivity extends AppCompatActivity {
     private FloatingActionButton newButton;
     private Typeface typeface;
 
-    private ExpenseDbSource expenseDbSource;
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_layout);
         typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
 
-        // TODO initialize DB source
-
         initActionBar();
         initUi();
-        initExpenseList();
-        initExpenseListView();
+        initList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshList();
     }
 
     private void initActionBar() {
@@ -67,10 +65,6 @@ public class ExpenseListActivity extends AppCompatActivity {
         actionBar.setCustomView(view, params);
     }
 
-    /**
-     * Initialize UI components
-     * Setup action bar
-     */
     private void initUi() {
         newButton = (FloatingActionButton) findViewById(R.id.new_expense);
         newButton.setOnClickListener(new View.OnClickListener() {
@@ -82,24 +76,19 @@ public class ExpenseListActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Read available expenses from database
-     */
-    private void initExpenseList() {
-        expenseList = new ArrayList<>();
-        expenseList.add(new Expense("Elec bill", 300.00));
-        expenseList.add(new Expense("Food", 400.00));
-
-        // TODO get all expenses(expenseList) via DB source
-    }
-
-    /**
-     * Initialize expense list view
-     */
-    private void initExpenseListView() {
+    private void initList() {
         expenseListView = (ListView) findViewById(R.id.list);
+        expenseListView.setTextFilterEnabled(false);
+
+        expenseList = new ExpenseDbSource(this).getContacts();
         expenseListAdapter = new ExpenseListAdapter(this, expenseList);
         expenseListView.setAdapter(expenseListAdapter);
-        expenseListView.setTextFilterEnabled(false);
     }
+
+    private void refreshList() {
+        expenseList.clear();
+        expenseList.addAll(new ExpenseDbSource(this).getContacts());
+        expenseListAdapter.notifyDataSetChanged();
+    }
+
 }
