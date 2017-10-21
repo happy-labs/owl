@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -83,6 +84,16 @@ public class ContactListActivity extends AppCompatActivity {
         expenseList = new ContactDbSource(this).getContacts();
         contactListAdapter = new ContactListAdapter(this, expenseList);
         expenseListView.setAdapter(contactListAdapter);
+
+        expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Contact contact = expenseList.get(position);
+                Intent intent = new Intent(ContactListActivity.this, ViewContactActivity.class);
+                intent.putExtra("USERNAME", contact.getName());
+                startActivity(intent);
+            }
+        });
     }
 
     private void refreshList() {
