@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 User user = PreferenceUtil.getUser(this);
                 if (user != null) {
                     // SHA256 hash of password
-                    String hash = CryptoUtil.sha256(password);
+                    String hash = CryptoUtil.hashSHA256(password);
                     Log.d(TAG, "user password: " + user.getPassword());
                     Log.d(TAG, "hashed password: " + hash);
 

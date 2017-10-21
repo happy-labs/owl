@@ -19,6 +19,7 @@ import com.score.owl.util.CryptoUtil;
 import com.score.owl.util.PreferenceUtil;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -89,15 +90,17 @@ public class RegisterActivity extends AppCompatActivity {
             // valid
             try {
                 // SHA256 hash of password
-                String hash = CryptoUtil.sha256(password);
+                String hash = CryptoUtil.hashSHA256(password);
                 Log.d(TAG, "hashed password: " + hash);
 
                 // save user with hashed password
                 // navigate to home
+                // init RSA key pair
                 User user = new User(username, hash);
                 PreferenceUtil.saveUser(this, user);
+                CryptoUtil.initRSAKeyPair(this);
                 navigateHome();
-            } catch (NoSuchAlgorithmException e) {
+            } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
             }
