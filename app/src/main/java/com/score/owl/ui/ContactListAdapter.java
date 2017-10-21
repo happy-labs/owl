@@ -110,7 +110,7 @@ public class ContactListAdapter extends BaseAdapter {
     /**
      * Keep reference to children view to avoid unnecessary calls
      */
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView name;
         TextView phone;
     }

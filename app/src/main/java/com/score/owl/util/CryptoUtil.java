@@ -73,7 +73,7 @@ public class CryptoUtil {
         return kf.generatePrivate(spec);
     }
 
-    public static String encrypRSA(Context context, String payload) throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException {
+    public static String encryptRSA(Context context, String payload) throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException {
         // load public key
         PublicKey publicKey = CryptoUtil.getPublicKey(context);
 

@@ -58,7 +58,7 @@ public class ContactListActivity extends AppCompatActivity {
         View view = inflater.inflate(R.layout.action_bar_layout, null);
 
         TextView textView = (TextView) view.findViewById(R.id.title_text);
-        textView.setText("Expenses");
+        textView.setText("Contacts");
         textView.setTypeface(typeface, Typeface.BOLD);
 
         ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);

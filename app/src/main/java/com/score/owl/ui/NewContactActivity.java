@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +16,20 @@ import android.widget.Toast;
 import com.score.owl.R;
 import com.score.owl.db.ContactDbSource;
 import com.score.owl.pojo.Contact;
+import com.score.owl.util.CryptoUtil;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.spec.InvalidKeySpecException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class NewContactActivity extends AppCompatActivity {
+
+    private static final String TAG = NewContactActivity.class.getName();
 
     private EditText nameEditText;
     private EditText phoneEditText;
@@ -44,7 +57,7 @@ public class NewContactActivity extends AppCompatActivity {
         View view = inflater.inflate(R.layout.action_bar_layout, null);
 
         TextView textView = (TextView) view.findViewById(R.id.title_text);
-        textView.setText("New expense");
+        textView.setText("New contact");
         textView.setTypeface(typeface, Typeface.BOLD);
 
         ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
@@ -74,14 +87,21 @@ public class NewContactActivity extends AppCompatActivity {
             Toast.makeText(this, "Invalid input fields", Toast.LENGTH_LONG).show();
         } else {
             try {
+                // encrypt phone
+                String encPhone = CryptoUtil.encryptRSA(this, phone);
+                Log.d(TAG, "encrypted phone : " + encPhone);
+
                 // create expense via DB source
-                new ContactDbSource(this).createContact(new Contact(name, phone));
+                new ContactDbSource(this).createContact(new Contact(name, encPhone));
 
                 Toast.makeText(this, "Contact successfully saved", Toast.LENGTH_LONG).show();
                 this.finish();
             } catch (SQLException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Failed to create contact", Toast.LENGTH_LONG).show();
+            } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | NoSuchProviderException | BadPaddingException | InvalidKeySpecException | IllegalBlockSizeException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Fail to encrypt data", Toast.LENGTH_LONG).show();
             }
         }
     }
