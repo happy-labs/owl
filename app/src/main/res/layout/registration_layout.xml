@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/name"
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="false"
@@ -30,7 +30,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:background="@drawable/border_bottom"
-                android:hint="Name"
+                android:hint="Username"
                 android:inputType="text"
                 android:maxLines="1"
                 android:textColor="@color/android_grey"
@@ -38,7 +38,7 @@
                 android:textSize="25sp" />
 
             <EditText
-                android:id="@+id/amount"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="false"
@@ -47,8 +47,25 @@
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/border_bottom"
-                android:hint="Amount"
-                android:inputType="number"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@color/android_grey"
+                android:textColorHint="@color/clouds"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="false"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/border_bottom"
+                android:hint="Confirm password"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:textColor="@color/android_grey"
                 android:textColorHint="@color/clouds"
@@ -59,15 +76,14 @@
                 android:layout_height="200dp">
 
                 <Button
-                    android:id="@+id/add_friend_btn"
+                    android:id="@+id/register_button"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/friend_id"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/rounded_corner_button"
-                    android:text="Save"
+                    android:text="Register"
                     android:textColor="@color/white" />
             </FrameLayout>
         </LinearLayout>
