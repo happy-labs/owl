@@ -1,18 +1,15 @@
 package com.score.myexp.ui;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.score.myexp.db.ExpenseDbSource;
 
-public class NewExpenseActivity extends Activity {
+public class NewExpenseActivity extends AppCompatActivity {
 
     private EditText nameEditText;
     private EditText amountEditText;
@@ -40,40 +37,13 @@ public class NewExpenseActivity extends Activity {
      */
     private void initUi() {
         // set up action bar
-        final ActionBar actionBar = getActionBar();
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(0xff333333));
         actionBar.setTitle("New expense");
 
-        nameEditText = (EditText) findViewById(R.id.new_expense_layout_name);
-        amountEditText = (EditText) findViewById(R.id.new_expense_layout_amount);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.ok_menu, menu);
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_done) {
-            // create expense
-            createExpense();
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        nameEditText = (EditText) findViewById(R.id.name);
+        amountEditText = (EditText) findViewById(R.id.amount);
     }
 
     /**

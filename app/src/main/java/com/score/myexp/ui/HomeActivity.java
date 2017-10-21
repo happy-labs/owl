@@ -36,8 +36,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private void initUi() {
         // setup action bar
         final ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(0xff333333));
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setBackgroundDrawable(new ColorDrawable(0xffffffff));
         actionBar.setTitle("Home");
 
         newExpense = (RelativeLayout) findViewById(R.id.home_layout_new_expense);

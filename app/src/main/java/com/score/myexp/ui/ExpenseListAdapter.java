@@ -1,6 +1,7 @@
 package com.score.myexp.ui;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ public class ExpenseListAdapter extends BaseAdapter {
     private ExpenseListActivity activity;
     private ArrayList<Expense> expenseList;
 
+    private Typeface typeface;
+
     /**
      * Initialize context variables
      *
@@ -29,6 +32,7 @@ public class ExpenseListAdapter extends BaseAdapter {
     public ExpenseListAdapter(ExpenseListActivity activity, ArrayList<Expense> expenseList) {
         this.activity = activity;
         this.expenseList = expenseList;
+        typeface = Typeface.createFromAsset(activity.getAssets(), "fonts/GeosansLight.ttf");
     }
 
     /**
@@ -86,6 +90,9 @@ public class ExpenseListAdapter extends BaseAdapter {
             holder.name = (TextView) view.findViewById(R.id.expense_list_row_layout_name);
             holder.amount = (TextView) view.findViewById(R.id.expense_list_row_layout_amount);
 
+            holder.name.setTypeface(typeface, Typeface.NORMAL);
+            holder.amount.setTypeface(typeface, Typeface.NORMAL);
+
             view.setTag(holder);
         } else {
             // get view holder back
@@ -96,7 +103,6 @@ public class ExpenseListAdapter extends BaseAdapter {
         holder.iconText.setText("#");
         holder.name.setText(expense.getName());
         holder.amount.setText(Double.toString(expense.getAmount()));
-        view.setBackgroundResource(R.drawable.list_selector);
 
         return view;
     }

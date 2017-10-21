@@ -1,9 +1,10 @@
 package com.score.myexp.ui;
 
-import android.app.ActionBar;
-import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 
@@ -17,11 +18,12 @@ import java.util.ArrayList;
  *
  * @author eranga herath(erangaeb@gmail.com)
  */
-public class ExpenseListActivity extends Activity {
+public class ExpenseListActivity extends AppCompatActivity {
 
     private ListView expenseListView;
     private ExpenseListAdapter expenseListAdapter;
     private ArrayList<Expense> expenseList;
+    private FloatingActionButton newButton;
 
     private ExpenseDbSource expenseDbSource;
 
@@ -46,10 +48,19 @@ public class ExpenseListActivity extends Activity {
      */
     private void initUi() {
         // set up action bar
-        final ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setBackgroundDrawable(new ColorDrawable(0xff333333));
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setBackgroundDrawable(new ColorDrawable(0x00ffffff));
         actionBar.setTitle("Expenses");
+
+        newButton = (FloatingActionButton) findViewById(R.id.new_expense);
+        newButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExpenseListActivity.this, NewExpenseActivity.class);
+                ExpenseListActivity.this.startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -57,6 +68,9 @@ public class ExpenseListActivity extends Activity {
      */
     private void initExpenseList() {
         expenseList = new ArrayList<>();
+
+        expenseList.add(new Expense("Elec bill", 300.00));
+        expenseList.add(new Expense("Food", 400.00));
         // TODO get all expenses(expenseList) via DB source
     }
 
@@ -64,14 +78,8 @@ public class ExpenseListActivity extends Activity {
      * Initialize expense list view
      */
     private void initExpenseListView() {
-        expenseListView = (ListView) findViewById(R.id.list_view);
+        expenseListView = (ListView) findViewById(R.id.list);
         expenseListAdapter = new ExpenseListAdapter(this, expenseList);
-
-        // add header and footer for list
-        View headerView = View.inflate(this, R.layout.list_header, null);
-        View footerView = View.inflate(this, R.layout.list_header, null);
-        expenseListView.addHeaderView(headerView);
-        expenseListView.addFooterView(footerView);
         expenseListView.setAdapter(expenseListAdapter);
         expenseListView.setTextFilterEnabled(false);
     }

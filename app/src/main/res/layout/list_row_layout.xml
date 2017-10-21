@@ -1,69 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:background="@drawable/list_row_background"
-        android:layout_height="80dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="80dp"
+    android:background="#fff"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
         <RelativeLayout
+            android:id="@+id/expense_list_row_layout_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:id="@+id/expense_list_row_layout_icon"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:layout_margin="15dp">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/coin"
+                android:layout_centerInParent="true" />
+
             <TextView
                 android:id="@+id/icon_text"
-                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="#"
+                android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
-                android:textColor="#ffffff"
-                android:text="#"/>
+                android:visibility="gone" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="fill_parent"
             android:layout_toRightOf="@+id/expense_list_row_layout_icon"
-            android:layout_height="fill_parent">
-            <TextView
-                    android:id="@+id/expense_list_row_layout_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="20dp"
-                    android:text="Dinner"
-                    android:textColor="#4a4a4a">
-            </TextView>
+            android:gravity="center_vertical">
 
             <TextView
-                    android:id="@+id/expense_list_row_layout_amount"
-                    android:layout_width="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_below="@+id/expense_list_row_layout_name"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="15dp"
-                    android:text="300"
-                    android:textColor="#4a4a4a">
-            </TextView>
+                android:id="@+id/expense_list_row_layout_name"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="Dinner"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/expense_list_row_layout_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_below="@+id/expense_list_row_layout_name"
+                android:gravity="center_vertical"
+                android:text="300"
+                android:textSize="15dp" />
 
         </RelativeLayout>
 
-
-        <!-- divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#DADADC" >
-        </View>
     </RelativeLayout>
 
 </LinearLayout>
