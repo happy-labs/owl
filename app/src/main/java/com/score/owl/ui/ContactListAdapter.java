@@ -85,14 +85,13 @@ public class ContactListAdapter extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.list_row_layout, parent, false);
+            view = layoutInflater.inflate(R.layout.contact_list_row_layout, parent, false);
             holder = new ViewHolder();
-            holder.iconText = (TextView) view.findViewById(R.id.icon_text);
-            holder.name = (TextView) view.findViewById(R.id.expense_list_row_layout_name);
-            holder.amount = (TextView) view.findViewById(R.id.expense_list_row_layout_amount);
+            holder.name = (TextView) view.findViewById(R.id.contact_list_row_layout_name);
+            holder.phone = (TextView) view.findViewById(R.id.contact_list_row_layout_phone);
 
             holder.name.setTypeface(typeface, Typeface.NORMAL);
-            holder.amount.setTypeface(typeface, Typeface.NORMAL);
+            holder.phone.setTypeface(typeface, Typeface.NORMAL);
 
             view.setTag(holder);
         } else {
@@ -101,9 +100,8 @@ public class ContactListAdapter extends BaseAdapter {
         }
 
         // bind text with view holder content view for efficient use
-        holder.iconText.setText("#");
         holder.name.setText(expense.getName());
-        holder.amount.setText(expense.getPhone());
+        holder.phone.setText(expense.getPhone());
 
         return view;
     }
@@ -113,9 +111,8 @@ public class ContactListAdapter extends BaseAdapter {
      * Keep reference to children view to avoid unnecessary calls
      */
     static class ViewHolder {
-        TextView iconText;
         TextView name;
-        TextView amount;
+        TextView phone;
     }
 
 }

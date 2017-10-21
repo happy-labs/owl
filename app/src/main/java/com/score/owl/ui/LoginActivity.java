@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
 
         LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.home_action_bar, null);
+        View view = inflater.inflate(R.layout.action_bar_layout, null);
 
         TextView textView = (TextView) view.findViewById(R.id.title_text);
         textView.setText("Login");

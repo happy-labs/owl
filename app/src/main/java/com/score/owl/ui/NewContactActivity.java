@@ -20,15 +20,13 @@ public class NewContactActivity extends AppCompatActivity {
 
     private EditText nameEditText;
     private EditText phoneEditText;
-    private Button createButton;
+    private Button saveButton;
     private Typeface typeface;
-
-    private static final String TAG = NewContactActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_expense_layout);
+        setContentView(R.layout.new_contact_layout);
         typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
 
         initActionBar();
@@ -43,7 +41,7 @@ public class NewContactActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
 
         LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.home_action_bar, null);
+        View view = inflater.inflate(R.layout.action_bar_layout, null);
 
         TextView textView = (TextView) view.findViewById(R.id.title_text);
         textView.setText("New expense");
@@ -55,20 +53,20 @@ public class NewContactActivity extends AppCompatActivity {
 
     private void initUi() {
         nameEditText = (EditText) findViewById(R.id.name);
-        phoneEditText = (EditText) findViewById(R.id.amount);
+        phoneEditText = (EditText) findViewById(R.id.phone);
         nameEditText.setTypeface(typeface);
         phoneEditText.setTypeface(typeface);
 
-        createButton = (Button) findViewById(R.id.save_button);
-        createButton.setOnClickListener(new View.OnClickListener() {
+        saveButton = (Button) findViewById(R.id.save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createExpense();
+                saveExpense();
             }
         });
     }
 
-    private void createExpense() {
+    private void saveExpense() {
         String name = nameEditText.getText().toString().trim();
         String phone = phoneEditText.getText().toString().trim();
 
