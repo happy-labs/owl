@@ -1,12 +1,15 @@
 package com.score.owl.ui;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.score.owl.db.ExpenseDbSource;
 import com.score.owl.pojos.Expense;
@@ -24,6 +27,7 @@ public class ExpenseListActivity extends AppCompatActivity {
     private ExpenseListAdapter expenseListAdapter;
     private ArrayList<Expense> expenseList;
     private FloatingActionButton newButton;
+    private Typeface typeface;
 
     private ExpenseDbSource expenseDbSource;
 
@@ -34,12 +38,32 @@ public class ExpenseListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_layout);
+        typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
 
         // TODO initialize DB source
 
+        initActionBar();
         initUi();
         initExpenseList();
         initExpenseListView();
+    }
+
+    private void initActionBar() {
+        // set up action bar
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.home_action_bar, null);
+
+        TextView textView = (TextView) view.findViewById(R.id.title_text);
+        textView.setText("Expenses");
+        textView.setTypeface(typeface, Typeface.BOLD);
+
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+        actionBar.setCustomView(view, params);
     }
 
     /**
@@ -47,12 +71,6 @@ public class ExpenseListActivity extends AppCompatActivity {
      * Setup action bar
      */
     private void initUi() {
-        // set up action bar
-        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setBackgroundDrawable(new ColorDrawable(0x00ffffff));
-        actionBar.setTitle("Expenses");
-
         newButton = (FloatingActionButton) findViewById(R.id.new_expense);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,9 +86,9 @@ public class ExpenseListActivity extends AppCompatActivity {
      */
     private void initExpenseList() {
         expenseList = new ArrayList<>();
-
         expenseList.add(new Expense("Elec bill", 300.00));
         expenseList.add(new Expense("Food", 400.00));
+
         // TODO get all expenses(expenseList) via DB source
     }
 
