@@ -1,4 +1,4 @@
-package com.score.owl.pojos;
+package com.score.owl.pojo;
 
 /**
  * POJO class to keep expense details

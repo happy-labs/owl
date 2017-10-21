@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.score.owl.pojos.Expense;
+import com.score.owl.R;
+import com.score.owl.pojo.Expense;
 
 import java.util.ArrayList;
 

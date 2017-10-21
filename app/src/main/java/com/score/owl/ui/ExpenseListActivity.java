@@ -11,8 +11,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.score.owl.R;
 import com.score.owl.db.ExpenseDbSource;
-import com.score.owl.pojos.Expense;
+import com.score.owl.pojo.Expense;
 
 import java.util.ArrayList;
 

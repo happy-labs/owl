@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.score.owl.pojos.Expense;
+import com.score.owl.pojo.Expense;
 
 import java.util.ArrayList;
 

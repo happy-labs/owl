@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.score.owl.R;
 import com.score.owl.db.ExpenseDbSource;
 
 public class NewExpenseActivity extends AppCompatActivity {
