@@ -3,6 +3,8 @@ package com.score.owl.util;
 import android.content.Context;
 import android.util.Base64;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -20,12 +22,16 @@ import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class CryptoUtil {
 
     public static final String PUBLIC_KEY = "PUBLIC_KEY";
     public static final String PRIVATE_KEY = "PRIVATE_KEY";
+    public static final String SESSION_KEY = "SESSION_KEY";
 
     // size of RSA keys
     private static final int RSA_KEY_SIZE = 1024;
@@ -42,18 +48,18 @@ public class CryptoUtil {
         // save public key in shared preference
         byte[] pubKeyEncoded = keyPair.getPublic().getEncoded();
         String pubKeyStream = Base64.encodeToString(pubKeyEncoded, Base64.DEFAULT).replaceAll("\n", "").replaceAll("\r", "");
-        PreferenceUtil.saveRsaKey(context, pubKeyStream, CryptoUtil.PUBLIC_KEY);
+        PreferenceUtil.saveKey(context, pubKeyStream, CryptoUtil.PUBLIC_KEY);
 
         // get private key from keypair
-        // save private key in share preference
+        // save private key in shared preference
         byte[] priKeyEncoded = keyPair.getPrivate().getEncoded();
         String priKeyStream = Base64.encodeToString(priKeyEncoded, Base64.DEFAULT).replaceAll("\n", "").replaceAll("\r", "");
-        PreferenceUtil.saveRsaKey(context, priKeyStream, CryptoUtil.PRIVATE_KEY);
+        PreferenceUtil.saveKey(context, priKeyStream, CryptoUtil.PRIVATE_KEY);
     }
 
     private static PublicKey getPublicKey(Context context) throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException {
         // get key string from shared preference
-        String keyString = PreferenceUtil.getRsaKey(context, CryptoUtil.PUBLIC_KEY);
+        String keyString = PreferenceUtil.getKey(context, CryptoUtil.PUBLIC_KEY);
 
         // convert to string key public key
         X509EncodedKeySpec spec = new X509EncodedKeySpec(Base64.decode(keyString, Base64.DEFAULT));
@@ -64,7 +70,7 @@ public class CryptoUtil {
 
     private static PrivateKey getPrivateKey(Context context) throws InvalidKeySpecException, NoSuchAlgorithmException {
         // get key string from shared preference
-        String keyString = PreferenceUtil.getRsaKey(context, CryptoUtil.PRIVATE_KEY);
+        String keyString = PreferenceUtil.getKey(context, CryptoUtil.PRIVATE_KEY);
 
         // convert to string key public key
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(Base64.decode(keyString, Base64.DEFAULT));
@@ -91,6 +97,45 @@ public class CryptoUtil {
         // decrypt
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        byte[] data = Base64.decode(payload, Base64.DEFAULT);
+        return new String(cipher.doFinal(data));
+    }
+
+    public static void initAESSecretKey(Context context) throws NoSuchAlgorithmException {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        keyGenerator.init(SESSION_KEY_SIZE);
+        SecretKey secretKey = keyGenerator.generateKey();
+
+        // save session key in share preference
+        String keyStream = Base64.encodeToString(secretKey.getEncoded(), Base64.DEFAULT).replaceAll("\n", "").replaceAll("\r", "");
+        PreferenceUtil.saveKey(context, keyStream, SESSION_KEY);
+    }
+
+    private static SecretKey getAESSecretKey(Context context) {
+        // get key string from shared preference
+        String keyStream = PreferenceUtil.getKey(context, CryptoUtil.SESSION_KEY);
+
+        byte[] key = Base64.decode(keyStream, Base64.DEFAULT);
+        return new SecretKeySpec(key, 0, key.length, "AES");
+    }
+
+    public static String encryptAES(Context context, String payload) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, NoSuchProviderException, InvalidAlgorithmParameterException, UnsupportedEncodingException {
+        // load secret key
+        SecretKey secretKey = getAESSecretKey(context);
+
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] data = cipher.doFinal(payload.getBytes());
+        return Base64.encodeToString(data, Base64.DEFAULT);
+    }
+
+    public static String decryptAES(Context context, String payload) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, NoSuchProviderException, InvalidAlgorithmParameterException, UnsupportedEncodingException {
+        // load secret key
+        SecretKey secretKey = getAESSecretKey(context);
+
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+
         byte[] data = Base64.decode(payload, Base64.DEFAULT);
         return new String(cipher.doFinal(data));
     }

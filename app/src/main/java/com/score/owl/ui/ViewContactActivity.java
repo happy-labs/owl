@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +17,11 @@ import com.score.owl.db.ContactDbSource;
 import com.score.owl.pojo.Contact;
 import com.score.owl.util.CryptoUtil;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.spec.InvalidKeySpecException;
 
 import javax.crypto.BadPaddingException;
@@ -85,7 +89,7 @@ public class ViewContactActivity extends AppCompatActivity {
             contact = new ContactDbSource(this).getContact(username);
             if (contact != null) {
                 try {
-                    nameEditText.setText(contact.getName());    
+                    nameEditText.setText(contact.getName());
                     phoneEditText.setText(CryptoUtil.decryptRSA(this, contact.getPhone()));
                 } catch (NoSuchPaddingException | NoSuchAlgorithmException | BadPaddingException | InvalidKeySpecException | IllegalBlockSizeException | InvalidKeyException e) {
                     e.printStackTrace();
@@ -97,6 +101,32 @@ public class ViewContactActivity extends AppCompatActivity {
     }
 
     private void verifyContact() {
+        try {
+            CryptoUtil.initAESSecretKey(this);
+            String phone = CryptoUtil.decryptRSA(this, contact.getPhone());
+            String enc = CryptoUtil.encryptAES(this, phone);
+            String dec = CryptoUtil.decryptAES(this, enc);
+            Log.d(TAG, "AES --- " + enc);
+            Log.d(TAG, "DEC --- " + dec);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
     }
 
 }

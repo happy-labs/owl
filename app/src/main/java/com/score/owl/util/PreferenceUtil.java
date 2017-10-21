@@ -55,7 +55,7 @@ public class PreferenceUtil {
      * @param key     public/private keys(encoded key string)
      * @param keyType public_key, private_key, server_key
      */
-    public static void saveRsaKey(Context context, String key, String keyType) {
+    public static void saveKey(Context context, String key, String keyType) {
         SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.preference_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(keyType, key);
@@ -69,7 +69,7 @@ public class PreferenceUtil {
      * @param keyType public_key, private_key, server_key
      * @return key string
      */
-    public static String getRsaKey(Context context, String keyType) {
+    public static String getKey(Context context, String keyType) {
         SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.preference_file), Context.MODE_PRIVATE);
         return preferences.getString(keyType, "");
     }
