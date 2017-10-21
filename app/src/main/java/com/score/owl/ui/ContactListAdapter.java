@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.score.owl.R;
-import com.score.owl.pojo.Expense;
+import com.score.owl.pojo.Contact;
 
 import java.util.ArrayList;
 
@@ -18,10 +18,10 @@ import java.util.ArrayList;
  *
  * @author eranga herath(erangaeb@gmail.com)
  */
-public class ExpenseListAdapter extends BaseAdapter {
+public class ContactListAdapter extends BaseAdapter {
 
-    private ExpenseListActivity activity;
-    private ArrayList<Expense> expenseList;
+    private ContactListActivity activity;
+    private ArrayList<Contact> expenseList;
 
     private Typeface typeface;
 
@@ -30,7 +30,7 @@ public class ExpenseListAdapter extends BaseAdapter {
      *
      * @param activity friend list activity
      */
-    public ExpenseListAdapter(ExpenseListActivity activity, ArrayList<Expense> expenseList) {
+    public ContactListAdapter(ContactListActivity activity, ArrayList<Contact> expenseList) {
         this.activity = activity;
         this.expenseList = expenseList;
         typeface = Typeface.createFromAsset(activity.getAssets(), "fonts/GeosansLight.ttf");
@@ -81,7 +81,7 @@ public class ExpenseListAdapter extends BaseAdapter {
         // A ViewHolder keeps references to children views to avoid unnecessary calls
         // to findViewById() on each row.
         final ViewHolder holder;
-        final Expense expense = (Expense) getItem(position);
+        final Contact expense = (Contact) getItem(position);
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -103,7 +103,7 @@ public class ExpenseListAdapter extends BaseAdapter {
         // bind text with view holder content view for efficient use
         holder.iconText.setText("#");
         holder.name.setText(expense.getName());
-        holder.amount.setText(Double.toString(expense.getAmount()));
+        holder.amount.setText(expense.getPhone());
 
         return view;
     }

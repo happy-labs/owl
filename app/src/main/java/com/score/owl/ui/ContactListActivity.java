@@ -12,21 +12,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.score.owl.R;
-import com.score.owl.db.ExpenseDbSource;
-import com.score.owl.pojo.Expense;
+import com.score.owl.db.ContactDbSource;
+import com.score.owl.pojo.Contact;
 
 import java.util.ArrayList;
 
 /**
- * Activity which responsible to display Expense list
+ * Activity which responsible to display Contact list
  *
  * @author eranga herath(erangaeb@gmail.com)
  */
-public class ExpenseListActivity extends AppCompatActivity {
+public class ContactListActivity extends AppCompatActivity {
 
     private ListView expenseListView;
-    private ExpenseListAdapter expenseListAdapter;
-    private ArrayList<Expense> expenseList;
+    private ContactListAdapter contactListAdapter;
+    private ArrayList<Contact> expenseList;
     private FloatingActionButton newButton;
     private Typeface typeface;
 
@@ -70,8 +70,8 @@ public class ExpenseListActivity extends AppCompatActivity {
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ExpenseListActivity.this, NewExpenseActivity.class);
-                ExpenseListActivity.this.startActivity(intent);
+                Intent intent = new Intent(ContactListActivity.this, NewContactActivity.class);
+                ContactListActivity.this.startActivity(intent);
             }
         });
     }
@@ -80,15 +80,15 @@ public class ExpenseListActivity extends AppCompatActivity {
         expenseListView = (ListView) findViewById(R.id.list);
         expenseListView.setTextFilterEnabled(false);
 
-        expenseList = new ExpenseDbSource(this).getContacts();
-        expenseListAdapter = new ExpenseListAdapter(this, expenseList);
-        expenseListView.setAdapter(expenseListAdapter);
+        expenseList = new ContactDbSource(this).getContacts();
+        contactListAdapter = new ContactListAdapter(this, expenseList);
+        expenseListView.setAdapter(contactListAdapter);
     }
 
     private void refreshList() {
         expenseList.clear();
-        expenseList.addAll(new ExpenseDbSource(this).getContacts());
-        expenseListAdapter.notifyDataSetChanged();
+        expenseList.addAll(new ContactDbSource(this).getContacts());
+        contactListAdapter.notifyDataSetChanged();
     }
 
 }

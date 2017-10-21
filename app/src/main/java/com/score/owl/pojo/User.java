@@ -1,9 +1,5 @@
 package com.score.owl.pojo;
 
-/**
- * Created by eranga on 10/21/17.
- */
-
 public class User {
     private String username;
     private String password;

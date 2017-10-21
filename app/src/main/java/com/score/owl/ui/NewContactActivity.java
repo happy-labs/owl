@@ -13,17 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.score.owl.R;
-import com.score.owl.db.ExpenseDbSource;
-import com.score.owl.pojo.Expense;
+import com.score.owl.db.ContactDbSource;
+import com.score.owl.pojo.Contact;
 
-public class NewExpenseActivity extends AppCompatActivity {
+public class NewContactActivity extends AppCompatActivity {
 
     private EditText nameEditText;
-    private EditText amountEditText;
+    private EditText phoneEditText;
     private Button createButton;
     private Typeface typeface;
 
-    private static final String TAG = NewExpenseActivity.class.getName();
+    private static final String TAG = NewContactActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +55,9 @@ public class NewExpenseActivity extends AppCompatActivity {
 
     private void initUi() {
         nameEditText = (EditText) findViewById(R.id.name);
-        amountEditText = (EditText) findViewById(R.id.amount);
+        phoneEditText = (EditText) findViewById(R.id.amount);
         nameEditText.setTypeface(typeface);
-        amountEditText.setTypeface(typeface);
+        phoneEditText.setTypeface(typeface);
 
         createButton = (Button) findViewById(R.id.save_button);
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -70,14 +70,14 @@ public class NewExpenseActivity extends AppCompatActivity {
 
     private void createExpense() {
         String name = nameEditText.getText().toString().trim();
-        String amount = amountEditText.getText().toString().trim();
+        String phone = phoneEditText.getText().toString().trim();
 
-        if (name.isEmpty() || amount.isEmpty()) {
+        if (name.isEmpty() || phone.isEmpty()) {
             Toast.makeText(this, "Invalid input fields", Toast.LENGTH_LONG).show();
         } else {
             try {
                 // create expense via DB source
-                new ExpenseDbSource(this).createContact(new Expense(name, 2.0));
+                new ContactDbSource(this).createContact(new Contact(name, phone));
 
                 Toast.makeText(this, "Contact successfully saved", Toast.LENGTH_LONG).show();
                 this.finish();

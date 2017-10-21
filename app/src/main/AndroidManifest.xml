@@ -30,13 +30,13 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name="com.score.owl.ui.ExpenseListActivity"
+            android:name="com.score.owl.ui.ContactListActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
-            android:name="com.score.owl.ui.NewExpenseActivity"
+            android:name="com.score.owl.ui.NewContactActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light" />

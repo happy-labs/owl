@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
  *
  * @author eranga herath(erangaeb@gmail.com)
  */
-public class ExpenseDbContract {
+public class ContactDbContract {
     /**
      * Inner class that defines contact table contents
      */

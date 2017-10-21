@@ -105,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void navigateHome() {
-        Intent intent = new Intent(this, ExpenseListActivity.class);
+        Intent intent = new Intent(this, ContactListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         this.finish();

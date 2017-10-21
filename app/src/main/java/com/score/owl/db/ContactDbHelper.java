@@ -14,12 +14,12 @@ import android.util.Log;
  *
  * @author eranga herath(erangaeb@hgmail.com)
  */
-public class ExpenseDbHelper extends SQLiteOpenHelper {
+public class ContactDbHelper extends SQLiteOpenHelper {
 
-    private static final String TAG = ExpenseDbHelper.class.getName();
+    private static final String TAG = ContactDbHelper.class.getName();
 
     // we use singleton database
-    private static ExpenseDbHelper expenseDbHelper;
+    private static ContactDbHelper contactDbHelper;
 
     // if you change the database schema, you must increment the database version
     private static final int DATABASE_VERSION = 2;
@@ -34,16 +34,16 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
     //        digsig TEXT
     //    );
     private static final String SQL_CREATE_CONTACT =
-            "CREATE TABLE " + ExpenseDbContract.Contact.TABLE_NAME + " (" +
-                    ExpenseDbContract.Contact._ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + ", " +
-                    ExpenseDbContract.Contact.COLUMN_NAME_USERNAME + " TEXT, " +
-                    ExpenseDbContract.Contact.COLUMN_NAME_PHONE + " TEXT, " +
-                    ExpenseDbContract.Contact.COLUMN_NAME_DIGSIG + " TEXT" +
+            "CREATE TABLE " + ContactDbContract.Contact.TABLE_NAME + " (" +
+                    ContactDbContract.Contact._ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + ", " +
+                    ContactDbContract.Contact.COLUMN_NAME_USERNAME + " TEXT, " +
+                    ContactDbContract.Contact.COLUMN_NAME_PHONE + " TEXT, " +
+                    ContactDbContract.Contact.COLUMN_NAME_DIGSIG + " TEXT" +
                     " )";
 
     // sql to delete contacts table
     //    DROP TABLE IF EXISTS contacts;
-    private static final String SQL_DELETE_CONTACT = "DROP TABLE IF EXISTS " + ExpenseDbContract.Contact.TABLE_NAME;
+    private static final String SQL_DELETE_CONTACT = "DROP TABLE IF EXISTS " + ContactDbContract.Contact.TABLE_NAME;
 
 
     /**
@@ -52,7 +52,7 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
      *
      * @param context application context
      */
-    private ExpenseDbHelper(Context context) {
+    private ContactDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -62,11 +62,11 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
      * @param context application context
      * @return db helper instance
      */
-    synchronized static ExpenseDbHelper getInstance(Context context) {
-        if (expenseDbHelper == null) {
-            expenseDbHelper = new ExpenseDbHelper(context.getApplicationContext());
+    synchronized static ContactDbHelper getInstance(Context context) {
+        if (contactDbHelper == null) {
+            contactDbHelper = new ContactDbHelper(context.getApplicationContext());
         }
-        return (expenseDbHelper);
+        return (contactDbHelper);
     }
 
     /**
