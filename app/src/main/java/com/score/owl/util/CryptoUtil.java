@@ -15,6 +15,8 @@ import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.security.Signature;
+import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -138,6 +140,31 @@ public class CryptoUtil {
 
         byte[] data = Base64.decode(payload, Base64.DEFAULT);
         return new String(cipher.doFinal(data));
+    }
+
+    public static String sign(Context context, String payload) throws SignatureException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
+        // load private key
+        PrivateKey privateKey = CryptoUtil.getPrivateKey(context);
+
+        // sign
+        Signature signature = Signature.getInstance("SHA256withRSA");
+        signature.initSign(privateKey);
+        signature.update(payload.getBytes());
+
+        return Base64.encodeToString(signature.sign(), Base64.DEFAULT).replaceAll("\n", "").replaceAll("\r", "");
+    }
+
+    public static boolean verifySign(Context context, String payload, String signedPayload) throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, SignatureException {
+        // load public key
+        PublicKey publicKey = CryptoUtil.getPublicKey(context);
+
+        // verify
+        Signature signature = Signature.getInstance("SHA256withRSA");
+        signature.initVerify(publicKey);
+        signature.update(payload.getBytes());
+        byte[] signedPayloadContent = Base64.decode(signedPayload, Base64.DEFAULT);
+
+        return signature.verify(signedPayloadContent);
     }
 
     public static String hashSHA256(String in) throws NoSuchAlgorithmException {
