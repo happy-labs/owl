@@ -3,8 +3,8 @@ package com.score.owl.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.score.owl.pojo.User;
 import com.score.owl.R;
+import com.score.owl.pojo.User;
 
 
 /**
@@ -26,7 +26,7 @@ public class PreferenceUtil {
 
         //keys should be constants as well, or derived from a constant prefix in a loop.
         editor.putString("username", user.getUsername());
-        editor.putString("password", user.getUsername());
+        editor.putString("password", user.getPassword());
         editor.commit();
     }
 

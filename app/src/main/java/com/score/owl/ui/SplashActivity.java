@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
     private void initNavigation() {
         // determine where to go
         if (PreferenceUtil.getUser(this) == null) navigateSplash();
-        else navigateHome();
+        else navigateLogin();
     }
 
     private void navigateSplash() {
@@ -46,10 +46,18 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
 
+    public void navigateLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        SplashActivity.this.finish();
+    }
+
     public void navigateHome() {
         Intent intent = new Intent(this, ExpenseListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         SplashActivity.this.finish();
     }
+
 }

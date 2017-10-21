@@ -9,6 +9,6 @@ public class CryptoUtil {
     public static String sha256(String in) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(in.getBytes());
-        return Base64.encodeToString(hash, Base64.DEFAULT);
+        return Base64.encodeToString(hash, Base64.DEFAULT).replaceAll("\n", "").replaceAll("\r", "");
     }
 }
