@@ -1,4 +1,4 @@
-package com.score.myexp.ui;
+package com.score.owl.ui;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.score.myexp.pojos.Expense;
+import com.score.owl.pojos.Expense;
 
 import java.util.ArrayList;
 

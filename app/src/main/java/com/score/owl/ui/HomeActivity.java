@@ -1,4 +1,4 @@
-package com.score.myexp.ui;
+package com.score.owl.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 /**
  * Main activity of MyExp
  *
- * @author eranga herath(erangaeb#@gmail.com)
+ * @author eranga herath(erangaeb@gmail.com)
  */
 public class HomeActivity extends Activity implements View.OnClickListener {
 

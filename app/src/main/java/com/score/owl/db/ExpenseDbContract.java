@@ -1,4 +1,4 @@
-package com.score.myexp.db;
+package com.score.owl.db;
 
 import android.provider.BaseColumns;
 

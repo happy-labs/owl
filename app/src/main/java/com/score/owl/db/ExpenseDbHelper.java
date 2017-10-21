@@ -1,4 +1,4 @@
-package com.score.myexp.db;
+package com.score.owl.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

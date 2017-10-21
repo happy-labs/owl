@@ -1,4 +1,4 @@
-package com.score.myexp.ui;
+package com.score.owl.ui;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 
-import com.score.myexp.db.ExpenseDbSource;
-import com.score.myexp.pojos.Expense;
+import com.score.owl.db.ExpenseDbSource;
+import com.score.owl.pojos.Expense;
 
 import java.util.ArrayList;
 

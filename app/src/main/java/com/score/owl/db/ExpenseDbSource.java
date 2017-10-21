@@ -1,10 +1,10 @@
-package com.score.myexp.db;
+package com.score.owl.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.score.myexp.pojos.Expense;
+import com.score.owl.pojos.Expense;
 
 import java.util.ArrayList;
 

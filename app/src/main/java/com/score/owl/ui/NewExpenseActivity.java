@@ -1,4 +1,4 @@
-package com.score.myexp.ui;
+package com.score.owl.ui;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.score.myexp.db.ExpenseDbSource;
+import com.score.owl.db.ExpenseDbSource;
 
 public class NewExpenseActivity extends AppCompatActivity {
 
