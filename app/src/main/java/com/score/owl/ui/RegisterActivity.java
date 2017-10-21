@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.registration_layout);
         typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
 
-        initActionBar();
+        //initActionBar();
         initUi();
     }
 
