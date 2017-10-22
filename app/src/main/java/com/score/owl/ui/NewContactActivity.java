@@ -86,29 +86,12 @@ public class NewContactActivity extends AppCompatActivity {
         if (name.isEmpty() || phone.isEmpty()) {
             Toast.makeText(this, "Invalid input fields", Toast.LENGTH_LONG).show();
         } else {
-            try {
-                // encrypt phone
-                String encPhone = CryptoUtil.encryptRSA(this, phone);
-                Log.d(TAG, "encrypted phone : " + encPhone);
+            // todo create contact via db source
 
-                // create expense via DB source
-                new ContactDbSource(this).createContact(new Contact(name, encPhone));
+            // todo [wait till learning encryption] encrypt phone no with RSA
 
-                Toast.makeText(this, "Contact successfully saved", Toast.LENGTH_LONG).show();
-                this.finish();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Failed to create contact", Toast.LENGTH_LONG).show();
-            } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | NoSuchProviderException | BadPaddingException | InvalidKeySpecException | IllegalBlockSizeException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Fail to encrypt data", Toast.LENGTH_LONG).show();
-            }
+            // todo exit from activity
         }
-    }
-
-    private void getExpense(String username) {
-        // TODO find expense with given name via DB source
-        // TODO display expense amount in a toast
     }
 
 }
