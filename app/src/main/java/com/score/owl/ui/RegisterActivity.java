@@ -3,14 +3,11 @@ package com.score.owl.ui;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.score.owl.R;
@@ -37,44 +34,18 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.register_layout);
         typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
 
-        //initActionBar();
         initUi();
-    }
-
-    private void initActionBar() {
-        // set up action bar
-        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.action_bar_layout, null);
-
-        TextView textView = (TextView) view.findViewById(R.id.title_text);
-        textView.setText("Register");
-        textView.setTypeface(typeface, Typeface.BOLD);
-
-        ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        actionBar.setCustomView(view, params);
     }
 
     private void initUi() {
         usernameEditText = (EditText) findViewById(R.id.username);
-        passwordEditText = (EditText) findViewById(R.id.password);
-        confirmPasswordEditText = (EditText) findViewById(R.id.confirm_password);
+        // todo init other edit texts
 
         usernameEditText.setTypeface(typeface);
-        passwordEditText.setTypeface(typeface);
-        confirmPasswordEditText.setTypeface(typeface);
+        // todo set font for other edit texts
 
         registerButton = (Button) findViewById(R.id.register_button);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doRegister();
-            }
-        });
+        // todo set on click listener for button
     }
 
     private void doRegister() {
@@ -82,28 +53,21 @@ public class RegisterActivity extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
         String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
+        // todo add log of username and password
+        // todo display toast with username and password
+
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Invalid input fields", Toast.LENGTH_LONG).show();
         } else if (!password.equalsIgnoreCase(confirmPassword)) {
             Toast.makeText(this, "Mismatching passwords", Toast.LENGTH_LONG).show();
         } else {
-            // valid
-            try {
-                // SHA256 hash of password
-                String hash = CryptoUtil.hashSHA256(password);
-                Log.d(TAG, "hashed password: " + hash);
+            // todo get sha256 hash of the password
 
-                // save user with hashed password
-                // navigate to home
-                // init RSA key pair
-                User user = new User(username, hash);
-                PreferenceUtil.saveUser(this, user);
-                CryptoUtil.initRSAKeyPair(this);
-                navigateHome();
-            } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
-            }
+            // todo create user with hashed password
+
+            // todo save hashed password in shared preference via PreferenceUtil, or write your own util
+
+            // todo navigate to home
         }
     }
 
