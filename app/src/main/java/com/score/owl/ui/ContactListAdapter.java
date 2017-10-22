@@ -88,10 +88,10 @@ public class ContactListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.contact_list_row_layout, parent, false);
             holder = new ViewHolder();
             holder.name = (TextView) view.findViewById(R.id.contact_list_row_layout_name);
-            holder.phone = (TextView) view.findViewById(R.id.contact_list_row_layout_phone);
+            // todo init phone
 
             holder.name.setTypeface(typeface, Typeface.NORMAL);
-            holder.phone.setTypeface(typeface, Typeface.NORMAL);
+            // todo set custom font for phone
 
             view.setTag(holder);
         } else {
@@ -101,7 +101,7 @@ public class ContactListAdapter extends BaseAdapter {
 
         // bind text with view holder content view for efficient use
         holder.name.setText(expense.getName());
-        holder.phone.setText(expense.getPhone());
+        // todo set text for phone
 
         return view;
     }

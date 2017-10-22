@@ -81,17 +81,17 @@ public class ContactListActivity extends AppCompatActivity {
         expenseListView = (ListView) findViewById(R.id.list);
         expenseListView.setTextFilterEnabled(false);
 
-        expenseList = new ContactDbSource(this).getContacts();
+        // todo fill sample data to contact list
+
+        // todo[wait till learning db] load contacts list from db
+
         contactListAdapter = new ContactListAdapter(this, expenseList);
         expenseListView.setAdapter(contactListAdapter);
 
         expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Contact contact = expenseList.get(position);
-                Intent intent = new Intent(ContactListActivity.this, ViewContactActivity.class);
-                intent.putExtra("USERNAME", contact.getName());
-                startActivity(intent);
+                // todo[wait till learning db and encryption] go to view contact activity
             }
         });
     }
@@ -99,7 +99,7 @@ public class ContactListActivity extends AppCompatActivity {
     private void refreshList() {
         expenseList.clear();
         expenseList.addAll(new ContactDbSource(this).getContacts());
-        contactListAdapter.notifyDataSetChanged();
+        // todo[wait till doing new contact] notify adapter about new data
     }
 
 }
