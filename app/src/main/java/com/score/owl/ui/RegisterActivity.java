@@ -24,7 +24,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
-    private EditText confirmPasswordEditText;
+    // todo add confirmPasswordEditText
+
     private Button registerButton;
     private Typeface typeface;
 
@@ -51,7 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
     private void doRegister() {
         String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-        String confirmPassword = confirmPasswordEditText.getText().toString().trim();
+        // todo get text of confirm password edit text
+        String confirmPassword = "";
 
         // todo add log of username and password
         // todo display toast with username and password
