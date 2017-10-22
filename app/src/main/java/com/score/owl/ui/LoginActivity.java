@@ -3,14 +3,11 @@ package com.score.owl.ui;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.score.owl.R;
@@ -35,26 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_layout);
         typeface = Typeface.createFromAsset(getAssets(), "fonts/GeosansLight.ttf");
 
-        //initActionBar();
         initUi();
-    }
-
-    private void initActionBar() {
-        // set up action bar
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.action_bar_layout, null);
-
-        TextView textView = (TextView) view.findViewById(R.id.title_text);
-        textView.setText("Login");
-        textView.setTypeface(typeface, Typeface.BOLD);
-
-        ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        actionBar.setCustomView(view, params);
     }
 
     private void initUi() {
@@ -80,27 +58,15 @@ public class LoginActivity extends AppCompatActivity {
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Invalid input fields", Toast.LENGTH_LONG).show();
         } else {
-            try {
-                // get matching user
-                User user = PreferenceUtil.getUser(this);
-                if (user != null) {
-                    // SHA256 hash of password
-                    String hash = CryptoUtil.hashSHA256(password);
-                    Log.d(TAG, "user password: " + user.getPassword());
-                    Log.d(TAG, "hashed password: " + hash);
+            // todo get registered user
 
-                    // match username/password
-                    if (user.getUsername().equals(username) && user.getPassword().equals(hash))
-                        navigateHome();
-                    else
-                        Toast.makeText(this, "Wrong username/password", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(this, "No registered user", Toast.LENGTH_LONG).show();
-                }
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
-            }
+            // todo get SHA256 hash of password
+
+            // todo log registered user's password hash and new password hash
+
+            // todo compare username and password with registered users username and password
+
+            // todo for valid login navigate to home
         }
     }
 
