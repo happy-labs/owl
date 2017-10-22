@@ -55,6 +55,8 @@ public class ContactDbSource {
         while (cursor.moveToNext()) {
             String username = cursor.getString(cursor.getColumnIndex(ContactDbContract.Contact.COLUMN_NAME_USERNAME));
             String phone = cursor.getString(cursor.getColumnIndex(ContactDbContract.Contact.COLUMN_NAME_PHONE));
+            // todo[wait till learn digital signature] get digsig
+
             contactsList.add(new Contact(username, phone));
         }
 
@@ -81,6 +83,8 @@ public class ContactDbSource {
 
         if (cursor.moveToFirst()) {
             String phone = cursor.getString(cursor.getColumnIndex(ContactDbContract.Contact.COLUMN_NAME_PHONE));
+            // todo[wait till learn digital signature] get digsig
+
             return new Contact(username, phone);
         }
 
@@ -99,6 +103,7 @@ public class ContactDbSource {
         ContentValues values = new ContentValues();
         values.put(ContactDbContract.Contact.COLUMN_NAME_USERNAME, contact.getName());
         values.put(ContactDbContract.Contact.COLUMN_NAME_PHONE, contact.getPhone());
+        // todo put digsig
 
         // insert the new row, if fails throw an error
         return db.insertOrThrow(ContactDbContract.Contact.TABLE_NAME, null, values);
