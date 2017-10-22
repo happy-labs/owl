@@ -97,11 +97,9 @@ public class CryptoUtil {
         // load private key
         PrivateKey privateKey = CryptoUtil.getPrivateKey(context);
 
-        // decrypt
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        byte[] data = Base64.decode(payload, Base64.DEFAULT);
-        return new String(cipher.doFinal(data));
+        // todo decrypt
+        // todo decode base64 and return
+        return payload;
     }
 
     public static void initAESSecretKey(Context context) throws NoSuchAlgorithmException {
@@ -136,36 +134,25 @@ public class CryptoUtil {
         // load secret key
         SecretKey secretKey = getAESSecretKey(context);
 
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, secretKey);
-
-        byte[] data = Base64.decode(payload, Base64.DEFAULT);
-        return new String(cipher.doFinal(data));
+        // todo decrypt
+        // todo decode base64 and return
+        return payload;
     }
 
     public static String sign(Context context, String payload) throws SignatureException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
         // load private key
         PrivateKey privateKey = CryptoUtil.getPrivateKey(context);
 
-        // sign
-        Signature signature = Signature.getInstance("SHA256withRSA");
-        signature.initSign(privateKey);
-        signature.update(payload.getBytes());
-
-        return Base64.encodeToString(signature.sign(), Base64.DEFAULT).replaceAll("\n", "").replaceAll("\r", "");
+        // todo sign payload and return signature
+        return "digsig";
     }
 
     public static boolean verifySign(Context context, String payload, String signedPayload) throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, SignatureException {
         // load public key
         PublicKey publicKey = CryptoUtil.getPublicKey(context);
 
-        // verify
-        Signature signature = Signature.getInstance("SHA256withRSA");
-        signature.initVerify(publicKey);
-        signature.update(payload.getBytes());
-        byte[] signedPayloadContent = Base64.decode(signedPayload, Base64.DEFAULT);
-
-        return signature.verify(signedPayloadContent);
+        // todo verify signature and return validity
+        return true;
     }
 
     public static String hashSHA256(String in) throws NoSuchAlgorithmException {

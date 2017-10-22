@@ -67,7 +67,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             // todo create user with hashed password
 
-            // todo save hashed password in shared preference via PreferenceUtil, or write your own util
+            // todo save users(username and hashed password) in shared preference via PreferenceUtil, or write your own util
+
+            // todo [wait till learning key generation and encryption] initialize rsa key pair
 
             // todo navigate to home
         }
