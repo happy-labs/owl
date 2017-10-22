@@ -95,7 +95,7 @@ public class ViewContactActivity extends AppCompatActivity {
                 } catch (NoSuchPaddingException | NoSuchAlgorithmException | BadPaddingException | InvalidKeySpecException | IllegalBlockSizeException | InvalidKeyException e) {
                     e.printStackTrace();
 
-                    Toast.makeText(this, "Fail to decryp phone", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Fail to decrypt phone", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -108,7 +108,7 @@ public class ViewContactActivity extends AppCompatActivity {
             String phone = CryptoUtil.decryptRSA(this, contact.getPhone());
             String enc = CryptoUtil.encryptAES(this, phone);
             String dec = CryptoUtil.decryptAES(this, enc);
-            Log.d(TAG, "AES --- " + enc);
+            Log.d(TAG, "ENC --- " + enc);
             Log.d(TAG, "DEC --- " + dec);
 
             // sign and verify
@@ -116,6 +116,8 @@ public class ViewContactActivity extends AppCompatActivity {
             boolean verified = CryptoUtil.verifySign(this, phone, sign);
             Log.d(TAG, "SIGN --- " + sign);
             Log.d(TAG, "VERIFY --- " + verified);
+
+            Toast.makeText(this, "Signature verified", Toast.LENGTH_LONG).show();
         } catch (NoSuchAlgorithmException | InvalidKeyException | InvalidAlgorithmParameterException | NoSuchPaddingException | BadPaddingException | UnsupportedEncodingException | NoSuchProviderException | IllegalBlockSizeException | InvalidKeySpecException | SignatureException e) {
             e.printStackTrace();
         }
