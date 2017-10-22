@@ -87,40 +87,24 @@ public class ViewContactActivity extends AppCompatActivity {
     private void initContact() {
         if (getIntent().getExtras() != null && getIntent().hasExtra("USERNAME")) {
             String username = getIntent().getStringExtra("USERNAME");
-            contact = new ContactDbSource(this).getContact(username);
-            if (contact != null) {
-                try {
-                    nameEditText.setText(contact.getName());
-                    phoneEditText.setText(CryptoUtil.decryptRSA(this, contact.getPhone()));
-                } catch (NoSuchPaddingException | NoSuchAlgorithmException | BadPaddingException | InvalidKeySpecException | IllegalBlockSizeException | InvalidKeyException e) {
-                    e.printStackTrace();
+            nameEditText.setText(contact.getName());
 
-                    Toast.makeText(this, "Fail to decrypt phone", Toast.LENGTH_LONG).show();
-                }
-            }
+            // togo get contact with given username from db
+
+            // todo decrypt phone and show in phone no
         }
     }
 
     private void verifyContact() {
-        try {
-            // aes encrypt
-            CryptoUtil.initAESSecretKey(this);
-            String phone = CryptoUtil.decryptRSA(this, contact.getPhone());
-            String enc = CryptoUtil.encryptAES(this, phone);
-            String dec = CryptoUtil.decryptAES(this, enc);
-            Log.d(TAG, "ENC --- " + enc);
-            Log.d(TAG, "DEC --- " + dec);
+        // todo init aes key
 
-            // sign and verify
-            String sign = CryptoUtil.sign(this, phone);
-            boolean verified = CryptoUtil.verifySign(this, phone, sign);
-            Log.d(TAG, "SIGN --- " + sign);
-            Log.d(TAG, "VERIFY --- " + verified);
+        // todo encrypt phone via aes and log output
 
-            Toast.makeText(this, "Signature verified", Toast.LENGTH_LONG).show();
-        } catch (NoSuchAlgorithmException | InvalidKeyException | InvalidAlgorithmParameterException | NoSuchPaddingException | BadPaddingException | UnsupportedEncodingException | NoSuchProviderException | IllegalBlockSizeException | InvalidKeySpecException | SignatureException e) {
-            e.printStackTrace();
-        }
+        // todo decrypt phone via aes and log output
+
+        // todo digitally sign phone no and log output
+
+        // todo verify digital signature and log output(true, false) and show toast
     }
 
 }
