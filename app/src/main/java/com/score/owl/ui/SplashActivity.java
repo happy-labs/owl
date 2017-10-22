@@ -25,39 +25,27 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initNavigation() {
-        // determine where to go
-        if (PreferenceUtil.getUser(this) == null) navigateSplash();
-        else navigateLogin();
+        // todo determine where to go
+        // if have registered user go to login, otherwise goto registration
     }
 
     private void navigateSplash() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                navigateRegistration();
-            }
-        }, SPLASH_DISPLAY_LENGTH);
+        // todo wait in splash screen for 3 seconds and navigate to registration
     }
 
     private void navigateRegistration() {
         Intent intent = new Intent(this, RegisterActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish();
+        SplashActivity.this.finish();
     }
 
     public void navigateLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        SplashActivity.this.finish();
+        // todo go to login
     }
 
     public void navigateHome() {
-        Intent intent = new Intent(this, ContactListActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        SplashActivity.this.finish();
+        // todo go to home/contact list
     }
 
 }
