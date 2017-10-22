@@ -31,9 +31,10 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class CryptoUtil {
 
-    public static final String PUBLIC_KEY = "PUBLIC_KEY";
-    public static final String PRIVATE_KEY = "PRIVATE_KEY";
-    public static final String SESSION_KEY = "SESSION_KEY";
+    // key types
+    private static final String PUBLIC_KEY = "PUBLIC_KEY";
+    private static final String PRIVATE_KEY = "PRIVATE_KEY";
+    private static final String SESSION_KEY = "SESSION_KEY";
 
     // size of RSA keys
     private static final int RSA_KEY_SIZE = 1024;

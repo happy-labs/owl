@@ -7,11 +7,11 @@ import android.provider.BaseColumns;
  *
  * @author eranga herath(erangaeb@gmail.com)
  */
-public class ContactDbContract {
+class ContactDbContract {
     /**
      * Inner class that defines contact table contents
      */
-    public static abstract class Contact implements BaseColumns {
+    static abstract class Contact implements BaseColumns {
         static final String TABLE_NAME = "contacts";
         static final String COLUMN_NAME_USERNAME = "username";
         static final String COLUMN_NAME_PHONE = "phone";

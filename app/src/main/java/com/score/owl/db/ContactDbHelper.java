@@ -14,7 +14,7 @@ import android.util.Log;
  *
  * @author eranga herath(erangaeb@hgmail.com)
  */
-public class ContactDbHelper extends SQLiteOpenHelper {
+class ContactDbHelper extends SQLiteOpenHelper {
 
     private static final String TAG = ContactDbHelper.class.getName();
 
